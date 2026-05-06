@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "aventurtero")
+@Table(name = "aventurteros")
 public class Aventurero {
 
     @Id
@@ -39,5 +39,9 @@ public class Aventurero {
     @Max(value = 99, message = "El nivel máximo es 99")
     @Column(nullable = false)
     private Integer nivel = 1;
+
+    @ManyToOne
+    @JoinColumn(name="party_id")
+    private Party party;
 
 }
