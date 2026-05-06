@@ -1,5 +1,88 @@
 package com.example.proyecot_gremio.Controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.proyecot_gremio.DTO.AventureroDTO;
+import com.example.proyecot_gremio.Modelo.Aventurero;
+import com.example.proyecot_gremio.Service.AventureroService;
+
+@RestController
+@RequestMapping("/api/v1/aventureros")
 public class AventureroController {
+
+    @Autowired
+    private AventureroService aventureroService;
+
+    @GetMapping
+    public ResponseEntity<List<AventureroDTO>> todosLosHeroes() {
+        List<AventureroDTO> aventureros = aventureroService.obtenerTodos();
+        if (aventureros.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(aventureros, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AventureroDTO> buscarPorId(@PathVariable Integer id) {
+        try {
+            AventureroDTO aven = aventureroService.buscarPorId(id);
+            return new ResponseEntity<>(aven, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Aventurero> agregarAventurero(@RequestBody Aventurero aven) {
+        try {
+            Aventurero guardado = aventureroService.guardarAventurero(aven);
+            return new ResponseEntity<>(guardado, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Aventurero> editarHeroe(@PathVariable Integer id, @RequestBody Aventurero aven) {
+        try {
+            Aventurero editado = aventureroService.guardarAventurero(aven);
+            return new ResponseEntity<>(editado, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Aventurero> actualizarAventurero(@PathVariable Integer id, @RequestBody Aventurero aven){
+        try{
+            Aventurero newAven = aventureroService.actualizarAventurero( id, aven);
+            return new ResponseEntity<>(newAven, HttpStatus.OK);
+        }catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminarHeroe(@PathVariable Integer id) {
+        String resultado = aventureroService.eliminar(id);
+        if (resultado.contains("exitosamente")) {
+            return new ResponseEntity<>(resultado, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
