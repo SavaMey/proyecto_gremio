@@ -24,10 +24,6 @@ public class Party {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-       @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Integer id;
-
    @Size(min = 4, max = 70, message = "La party debe tener al menos 4 caracteres")
    @Column(nullable = false, length = 70)
    private String nombre;
