@@ -31,4 +31,5 @@ public class Reputacion {
     @Max(value = 10, message = "El nivel máximo es 10")
     @Column(nullable = false)
     private Integer nivel = 1;
+    
 }

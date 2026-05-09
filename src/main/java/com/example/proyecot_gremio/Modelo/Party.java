@@ -20,6 +20,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "parties")
 public class Party {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -28,6 +29,8 @@ public class Party {
    @Column(nullable = false, length = 70)
    private String nombre;
 
+   //-------------------------------------------------------------------------
+   
    @OneToMany(mappedBy = "party")
    @ToString.Exclude
    private List<Aventurero> aventureros;

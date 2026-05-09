@@ -12,7 +12,10 @@ import com.example.proyecot_gremio.Modelo.Party;
 import com.example.proyecot_gremio.Repository.AventureroRepository;
 import com.example.proyecot_gremio.Repository.PartyRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class PartyService {
      @Autowired
     private PartyRepository partyRepository;
