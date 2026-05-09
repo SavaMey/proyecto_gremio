@@ -33,6 +33,7 @@ public class PocionController {
         return new ResponseEntity<>(pociones, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
     public ResponseEntity<PocionDTO> buscarPorId(@PathVariable Integer id) {
         try {
             PocionDTO poci = pocionService.buscarPorId(id);

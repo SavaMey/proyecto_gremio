@@ -46,7 +46,7 @@ public class Gremio {
 
     //--------------------------------------------------------------------------
 
-    @OneToMany(mappedBy = "mision")
+    @OneToMany(mappedBy = "Mision")
     @ToString.Exclude
     private List<Mision> misiones;
 
@@ -56,6 +56,6 @@ public class Gremio {
 
     @OneToMany(mappedBy = "party")
     @ToString.Exclude
-    private List<Aventurero> aventureros;
+    private List<Party> parties;
 
 }

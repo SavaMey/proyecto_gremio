@@ -44,6 +44,7 @@ public class AventureroService {
     public Aventurero guardarAventurero(Aventurero aventurero){
         return aventureroRepository.save(aventurero);
     }
+    
     public Aventurero actualizarAventurero(Integer id,Aventurero aventurero){
         Aventurero aven = aventureroRepository.findById(id).orElseThrow(() -> new RuntimeException("El aventurero no está em los registros."));
         if(aventurero.getNivel() != null){
