@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.example.proyecot_gremio.DTO.PocionDTO;
 import com.example.proyecot_gremio.Modelo.Pocion;
 import com.example.proyecot_gremio.Repository.PocionRepository;
@@ -29,19 +30,19 @@ public class PocionService {
         return convertirADTO(pocion);
     }
 
-    public Pocion guardarPocion(Pocion pocion) {
-        return pocionRepository.save(pocion);
-    }
-
-    public String eliminar(Integer id) {
+    public String eliminarPocion(Integer id){
         try {
             Pocion pocion = pocionRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("¡Imposible eliminar! La poción con ID " + id + " no existe."));
+            .orElseThrow(()->new RuntimeException("No se puede eliminar: la poción con Id"+id+" no está existe."));
             pocionRepository.delete(pocion);
-            return "La'" + pocion.getNombre() + "' ha sido eliminada exitosamente.";
+            return "La '"+pocion.getNombre()+"' ha sido eliminada exitosamente.";
         } catch (RuntimeException e) {
             return e.getMessage();
         }
+    }
+
+    public Pocion guardarPocion(Pocion pocion){
+        return pocionRepository.save(pocion);
     }
 
     private PocionDTO convertirADTO(Pocion pocion) {
@@ -50,5 +51,7 @@ public class PocionService {
         dto.setNombre(pocion.getNombre());
         return dto;
     }
+
+
 
 }
