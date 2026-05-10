@@ -8,7 +8,6 @@ import lombok.Data;
 public class AventureroDTO {
     private Integer id;
     private String nombre;
-    private Integer nivel;
     private String nombreParty;
     private String nombreProfesion;
     private List<String> nombrePociones;

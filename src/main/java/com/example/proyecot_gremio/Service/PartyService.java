@@ -65,6 +65,7 @@ public class PartyService {
         PartyDTO dto = new PartyDTO();
         dto.setId(party.getId());
         dto.setNombre(party.getNombre());
+        dto.setNivel(party.getNivel());
         
         if (party.getAventureros() != null) {
             dto.setNombresAventureros(party.getAventureros().stream()
