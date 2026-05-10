@@ -45,8 +45,8 @@ public class GremioService {
         return convertirADTO(gremio);
     }
 
-    public Gremio guardarGremio(Gremio gremio){
-        return gremioRepository.save(gremio);
+    public GremioDTO guardarGremio(Gremio gremio){
+        return convertirADTO(gremio);
     }
 
     public Gremio actualizarGremio(Integer id, Gremio gremio){

@@ -36,8 +36,8 @@ public class MisionService {
         return convertirADTO(mision);
     }
 
-    public Mision guardarMision(Mision mision){
-        return misionRepository.save(mision);
+    public MisionDTO guardarMision(Mision mision){
+        return convertirADTO(mision);
     }
 
     public String eliminarMision(Integer id){
