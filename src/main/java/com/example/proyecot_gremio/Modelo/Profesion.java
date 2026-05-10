@@ -6,21 +6,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "reputaciones")
-public class Reputacion {
-
+@Table(name = "profesiones")
+public class Profesion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -28,10 +23,6 @@ public class Reputacion {
     @Column(nullable = false, length = 50)
     private String nombre;
 
-    @Builder.Default
-    @Min(value = -10, message = "El nivel mínimo es -10")
-    @Max(value = 10, message = "El nivel máximo es 10")
-    @Column(nullable = false)
-    private Integer nivel = 1;
-    
+    @Column(nullable = false, length = 500)
+    private String descripcion;
 }
