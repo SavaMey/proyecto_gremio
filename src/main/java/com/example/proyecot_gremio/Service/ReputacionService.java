@@ -45,11 +45,23 @@ public class ReputacionService {
         Reputacion repu = reputacionRepository.findById(id).orElseThrow(() -> new RuntimeException("La reputacion no existe."));
         if(reputacion.getNivel() != null){
             repu.setNivel(reputacion.getNivel());
-        }
-        if(reputacion.getNombre() != null){
-            repu.setNombre(reputacion.getNombre());
+            repu.setNombre(nomReputacion(reputacion.getNivel()));
         }
         return reputacionRepository.save(repu);
+    }
+
+    private String nomReputacion(Integer nivel) {
+        if (nivel >= -10 && nivel < 5) 
+            return "Vengativo";
+        if (nivel >= -5 && nivel < 0) 
+            return "Hostil";
+        if (nivel == 0) 
+            return "Neutro";
+        if (nivel >= 0 && nivel < 5) 
+            return "Amistoso";
+        else
+            return "Benevolente";
+
     }
 
     private ReputacionDTO convertirADTO(Reputacion reputacion) {
