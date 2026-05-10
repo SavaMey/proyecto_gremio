@@ -13,39 +13,40 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.proyecot_gremio.DTO.ProfesionDTO;
-import com.example.proyecot_gremio.Modelo.Profesion;
-import com.example.proyecot_gremio.Service.ProfesionService;
+import com.example.proyecot_gremio.DTO.RangoDTO;
+import com.example.proyecot_gremio.Modelo.Rango;
+import com.example.proyecot_gremio.Service.RangoService;
 
 @RestController
-@RequestMapping("/api/v1/profesion")
-public class ProfesionController {
+@RequestMapping("/api/v1/rango")
+public class RangoController {
+
     @Autowired
-    private ProfesionService profesionService;
+    private RangoService rangoService;
 
     @GetMapping
-    public ResponseEntity<List<ProfesionDTO>> todasLasProfesiones() {
-        List<ProfesionDTO> profesion = profesionService.obtenerTodos();
-        if (profesion.isEmpty()) {
+    public ResponseEntity<List<RangoDTO>> todosLosReputacion() {
+        List<RangoDTO> rango = rangoService.obtenerTodos();
+        if (rango.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(profesion, HttpStatus.OK);
+        return new ResponseEntity<>(rango, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProfesionDTO> buscarPorId(@PathVariable Integer id) {
+    public ResponseEntity<RangoDTO> buscarPorId(@PathVariable Integer id) {
         try {
-            ProfesionDTO prof = profesionService.buscarPorId(id);
-            return new ResponseEntity<>(prof, HttpStatus.OK);
+            RangoDTO ran = rangoService.buscarPorId(id);
+            return new ResponseEntity<>(ran, HttpStatus.OK);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<Profesion> agregarProfesion(@RequestBody Profesion prof) {
+    public ResponseEntity<Rango> agregarRango(@RequestBody Rango ran) {
         try {
-            Profesion guardado = profesionService.guardarProfesion(prof);
+            Rango guardado = rangoService.guardarRango(ran);
             return new ResponseEntity<>(guardado, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -53,9 +54,9 @@ public class ProfesionController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Profesion> editarProfesion(@PathVariable Integer id, @RequestBody Profesion prof) {
+    public ResponseEntity<Rango> editarReputacion(@PathVariable Integer id, @RequestBody Rango ran) {
         try {
-            Profesion editado = profesionService.guardarProfesion(prof);
+            Rango editado = rangoService.guardarRango(ran);
             return new ResponseEntity<>(editado, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -63,18 +64,18 @@ public class ProfesionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Profesion> actualizarProfesion(@PathVariable Integer id, @RequestBody Profesion prof){
+    public ResponseEntity<Rango> actualizarReputacion(@PathVariable Integer id, @RequestBody Rango ran){
         try{
-            Profesion newProf = profesionService.actualizarProfesion(id, prof);
-            return new ResponseEntity<>(newProf, HttpStatus.OK);
+            Rango newRan = rangoService.actualizarRango(id, ran);
+            return new ResponseEntity<>(newRan, HttpStatus.OK);
         }catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarReputacion(@PathVariable Integer id) {
-        String resultado = profesionService.eliminar(id);
+    public ResponseEntity<String> eliminarRango(@PathVariable Integer id) {
+        String resultado = rangoService.eliminar(id);
         if (resultado.contains("exitosamente")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);
         } else {
