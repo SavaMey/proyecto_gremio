@@ -51,7 +51,7 @@ public class ReputacionService {
     }
 
     private String nomReputacion(Integer nivel) {
-        if (nivel >= -10 && nivel < 5) 
+        if (nivel >= -10 && nivel < -5) 
             return "Vengativo";
         if (nivel >= -5 && nivel < 0) 
             return "Hostil";
