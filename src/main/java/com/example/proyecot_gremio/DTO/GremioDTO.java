@@ -7,4 +7,5 @@ public class GremioDTO {
     private Integer id;
     private String nombre;
     private Integer oro;
+    private String nombreFaccion;
 }

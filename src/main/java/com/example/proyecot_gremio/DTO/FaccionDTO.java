@@ -8,4 +8,5 @@ public class FaccionDTO {
     private String nombre;
     private String descripcion;
     private Boolean hostilidad;
+    private String nombreGremio;
 }

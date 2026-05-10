@@ -9,6 +9,6 @@ public class MisionDTO {
     private String nombre;
     private String descripcion;
     private Integer nivel;
-    private Integer exp_recompensa;
-    private Integer oro_recompensa;
+    private Integer expRecompensa;
+    private Integer oroRecompensa;
 }

@@ -49,13 +49,13 @@ public class Mision {
     @Min(value = 10, message = "La experiencia minima es 10")
     @Max(value = 1000000, message = "La experiencia maxima es 1.000.000")
     @Column(nullable = false)
-    private Integer exp_recompensa = 10;
+    private Integer expRecompensa = 10;
 
     @Builder.Default
     @Min(value = 100, message = "La experiencia minima es 10")
     @Max(value = 1000000, message = "La experiencia maxima es 1.000.000")
     @Column(nullable = false)
-    private Integer oro_recompensa = 100;
+    private Integer oroRecompensa = 100;
 
     //--------------------------------------------------------------------------------
 
