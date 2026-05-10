@@ -46,7 +46,7 @@ public class AventureroService {
     }
     
     public Aventurero actualizarAventurero(Integer id,Aventurero aventurero){
-        Aventurero aven = aventureroRepository.findById(id).orElseThrow(() -> new RuntimeException("El aventurero no está em los registros."));
+        Aventurero aven = aventureroRepository.findById(id).orElseThrow(() -> new RuntimeException("El aventurero no está en los registros."));
         if(aventurero.getNivel() != null){
             aven.setNivel(aventurero.getNivel());
         }

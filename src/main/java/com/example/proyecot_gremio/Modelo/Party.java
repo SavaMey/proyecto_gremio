@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
@@ -34,4 +36,8 @@ public class Party {
    @OneToMany(mappedBy = "party")
    @ToString.Exclude
    private List<Aventurero> aventureros;
+
+   @ManyToOne
+   @JoinColumn(name = "gremio_id")
+   private Gremio gremio;
 }

@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -46,12 +45,11 @@ public class Gremio {
 
     //--------------------------------------------------------------------------
 
-    @OneToMany(mappedBy = "Mision")
+    @OneToMany(mappedBy = "gremio")
     @ToString.Exclude
     private List<Mision> misiones;
 
     @OneToOne
-    @JoinColumn(name = "faccion_id")
     private Faccion faccion;
 
     @OneToMany(mappedBy = "party")
