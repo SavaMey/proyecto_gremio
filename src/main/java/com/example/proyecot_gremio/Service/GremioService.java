@@ -46,7 +46,7 @@ public class GremioService {
     }
 
     public GremioDTO guardarGremio(Gremio gremio){
-        return convertirADTO(gremio);
+        return convertirADTO(gremioRepository.save(gremio));
     }
 
     public Gremio actualizarGremio(Integer id, Gremio gremio){
@@ -140,9 +140,9 @@ public class GremioService {
             .orElseThrow(() -> new RuntimeException("El gremio no existe."));
             gremio.setFaccion(null);
             gremioRepository.save(gremio);
+            return "La Facción se ha desligado del gremio permanentemente.";
         }
         return "Esta Faccion no esta asociada al gremio actual.";
     }
     
- 
 }

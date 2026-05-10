@@ -37,8 +37,9 @@ public class MisionService {
     }
 
     public MisionDTO guardarMision(Mision mision){
-        return convertirADTO(mision);
+        return convertirADTO(misionRepository.save(mision));
     }
+
 
     public String eliminarMision(Integer id){
         try {
@@ -77,15 +78,15 @@ public class MisionService {
 
         Rango rango = mision.getRango();
 
+        if (mision.getParty() != null) {
+        return "Esta misión ya fue tomada por la party: " + mision.getParty().getNombre();
+        }
+
         if (rango != null) {
             if (party.getNivel() < rango.getNivel()) {
                 return "Rango insuficiente. Se requiere rango: " + rango.getNombre();
             }
-        }
-
-        if (mision.getParty() != null) {
-        return "Esta misión ya fue tomada por la party: " + mision.getParty().getNombre();
-        }
+        }        
         
         mision.setParty(party);
         misionRepository.save(mision);

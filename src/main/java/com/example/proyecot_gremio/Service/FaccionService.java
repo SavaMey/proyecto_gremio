@@ -30,8 +30,8 @@ public class FaccionService {
         return convertirADTO(faccion);
     }
     
-    public FaccionDTO guarFaccion(Faccion faccion){
-        return convertirADTO(faccion);
+    public FaccionDTO guardarFaccion(Faccion faccion){
+        return convertirADTO(faccionRepository.save(faccion));
     }
 
     public String eliminarFaccion(Integer id){
