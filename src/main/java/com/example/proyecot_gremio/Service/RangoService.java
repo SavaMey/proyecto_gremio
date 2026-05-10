@@ -1,12 +1,10 @@
 package com.example.proyecot_gremio.Service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.proyecot_gremio.DTO.RangoDTO;
 import com.example.proyecot_gremio.Modelo.Rango;
-import com.example.proyecot_gremio.Modelo.Reputacion;
 import com.example.proyecot_gremio.Repository.RangoRepository;
 import jakarta.transaction.Transactional;
 
