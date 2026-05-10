@@ -25,4 +25,8 @@ public class Profesion {
 
     @Column(nullable = false, length = 500)
     private String descripcion;
+
+    //--------------------------------------------------
+
+
 }

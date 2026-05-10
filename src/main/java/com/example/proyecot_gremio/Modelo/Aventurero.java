@@ -52,4 +52,7 @@ public class Aventurero {
     @OneToMany(mappedBy = "aventurero")
     private List<BolsoPociones> pocionesObtenidas;
 
+    @ManyToOne
+    @JoinColumn(name = "profesion_id")
+    private Profesion profesion;
 }

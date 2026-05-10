@@ -37,7 +37,7 @@ public class Faccion {
 
     @NotBlank (message = "La descripcion es obligatorio")
     @Size(min = 50, max = 500, message = "La descripcion debe tener entre 50 y 500 caracteres")
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 500)
     private String descripcion;
 
     @NotNull (message = "Debes definir si es hostil o no")

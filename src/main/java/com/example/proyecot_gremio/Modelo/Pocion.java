@@ -36,6 +36,8 @@ public class Pocion {
     @Column(nullable = false, length = 100)
     private String descripcion;
 
+    //------------------------------------------------
+
     @OneToMany(mappedBy = "pocion")
     private List<BolsoPociones> pociones;
 

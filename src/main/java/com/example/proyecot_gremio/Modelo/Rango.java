@@ -32,4 +32,6 @@ public class Rango {
     @Max(value = 15, message = "El nivel máximo es 10")
     @Column(nullable = false)
     private Integer nivel = 1;
+
+    
 }

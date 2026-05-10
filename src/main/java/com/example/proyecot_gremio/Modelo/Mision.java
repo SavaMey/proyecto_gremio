@@ -62,5 +62,6 @@ public class Mision {
     @ManyToOne
     @JoinColumn(name = "Gremio")
     private Gremio gremio;
+
     
 }
