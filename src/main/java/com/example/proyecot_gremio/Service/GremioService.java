@@ -1,21 +1,19 @@
 package com.example.proyecot_gremio.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.proyecot_gremio.DTO.AventureroDTO;
 import com.example.proyecot_gremio.DTO.GremioDTO;
-import com.example.proyecot_gremio.DTO.PartyDTO;
-import com.example.proyecot_gremio.Modelo.Aventurero;
+import com.example.proyecot_gremio.Modelo.Faccion;
 import com.example.proyecot_gremio.Modelo.Gremio;
+import com.example.proyecot_gremio.Modelo.Mision;
 import com.example.proyecot_gremio.Modelo.Party;
-import com.example.proyecot_gremio.Repository.AventureroRepository;
 import com.example.proyecot_gremio.Repository.FaccionRepository;
 import com.example.proyecot_gremio.Repository.GremioRepository;
 import com.example.proyecot_gremio.Repository.MisionRepository;
+import com.example.proyecot_gremio.Repository.PartyRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -27,7 +25,7 @@ public class GremioService {
     private GremioRepository gremioRepository;
 
     @Autowired
-    private AventureroRepository aventureroRepository;
+    private PartyRepository partyRepository;
 
     @Autowired
     private MisionRepository misionRepository;
@@ -45,17 +43,6 @@ public class GremioService {
         Gremio gremio = gremioRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("El gremio no existe"));
         return convertirADTO(gremio);
-    }
-
-    public String eliminar(Integer id){
-        try {
-            Gremio gremio = gremioRepository.findById(id)
-            .orElseThrow(()->new RuntimeException("No se puede eliminar un gremio inexistente"));
-            gremioRepository.delete(gremio);
-            return "El gremio ha sido eliminado exitosamente de los registros.";
-        } catch (RuntimeException e) {
-            return e.getMessage();
-        }
     }
 
     public Gremio guardarGremio(Gremio gremio){
@@ -78,14 +65,76 @@ public class GremioService {
         dto.setId(gremio.getId());
         dto.setNombre(gremio.getNombre());
         dto.setOro(gremio.getOro());
-
-        if (aventurero.getParty() != null) {
-            dto.setNombreParty(aventurero.getParty().getNombre());
-        }else{
-            dto.setNombreParty("Lobo solitario, auuu");
-        }
         return dto;
     }
 
+    public String añadirPartyAGremio(Integer gremioId, Integer partyId) {
+        Gremio gremio = gremioRepository.findById(gremioId)
+            .orElseThrow(() -> new RuntimeException("Error: El Gremio no existe en los registros oficiales."));
+        Party party = partyRepository.findById(partyId)
+            .orElseThrow(() -> new RuntimeException("Error: La Party no existe en los registros."));
+        party.setGremio(gremio); 
+        partyRepository.save(party);
+
+        return "La party '" + party.getNombre() + "' se unió al gremio: " + gremio.getNombre();
+    }
+
+    public String eliminarParty(Integer gremioId, Integer partyId) {
+        Party party = partyRepository.findById(partyId)
+            .orElseThrow(() -> new RuntimeException("La party no existe en los registros del gremio."));
+        if (party.getGremio() != null && party.getGremio().getId().equals(gremioId)) {
+            party.setGremio(null);
+            partyRepository.save(party);
+            return "La party ha sido expulsada del gremio permanentemente.";
+        }
+        return "Esta party no pertenece al gremio.";
+    }
+
+    public String añadirMisionAGremio(Integer gremioId, Integer misionId) {
+        Gremio gremio = gremioRepository.findById(gremioId)
+            .orElseThrow(() -> new RuntimeException("Error: El Gremio no existe en los registros oficiales."));
+        Mision mision = misionRepository.findById(misionId)
+            .orElseThrow(() -> new RuntimeException("Error: La Mision no existe en los registros."));
+        mision.setGremio(gremio); 
+        misionRepository.save(mision);
+
+        return "La mision '" + mision.getNombre() + "' se encuentra disponible en el gremio: " + gremio.getNombre();
+    }
+
+    public String misionCompletada(Integer gremioId, Integer misionId) {
+        Mision mision = misionRepository.findById(misionId)
+            .orElseThrow(() -> new RuntimeException("La mision no existe en los registros del gremio."));
+        if (mision.getGremio() != null && mision.getGremio().getId().equals(gremioId)) {
+            mision.setGremio(null);
+            misionRepository.save(mision);
+            return "La mision ya ha sido completada";
+        }
+        return "Esta mision no pertenece al gremio.";
+    }
+
+    public String asignarFaccion(Integer gremioId, Integer faccionId) {
+        Gremio gremio = gremioRepository.findById(gremioId)
+            .orElseThrow(() -> new RuntimeException("Error: El Gremio no existe en los registros oficiales."));
+        if (gremio.getFaccion() != null) {
+            return "Este gremio ya tiene una facción aliada.";
+        }
+        Faccion faccion = faccionRepository.findById(faccionId)
+            .orElseThrow(() -> new RuntimeException("Error: La Facción no existe en los registros."));
+        gremio.setFaccion(faccion);
+        gremioRepository.save(gremio);
+        return "Facción asignada correctamente.";
+    }
+
+    public String desligarFaccion(Integer gremioId, Integer faccionId) {
+        Faccion faccion = faccionRepository.findById(faccionId)
+            .orElseThrow(() -> new RuntimeException("La Faccion no existe en los registros del gremio."));
+        if (faccion.getGremio() != null && faccion.getGremio().getId().equals(gremioId)) {
+            faccion.setGremio(null);
+            faccionRepository.save(faccion);
+            return "La Faccion se ha desligado del gremio permanentemente.";
+        }
+        return "Esta Faccion no esta asociada al gremio actual.";
+    }
+    
  
 }
