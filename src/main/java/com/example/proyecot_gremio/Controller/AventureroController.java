@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.proyecot_gremio.DTO.AventureroArmadoDTO;
 import com.example.proyecot_gremio.DTO.AventureroDTO;
 import com.example.proyecot_gremio.Modelo.Aventurero;
 import com.example.proyecot_gremio.Service.AventureroService;
@@ -72,6 +73,17 @@ public class AventureroController {
         } else {
             return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/reporte/armados")
+    public ResponseEntity<List<AventureroArmadoDTO>> verAventurerosConArmas() {
+        List<AventureroArmadoDTO> reporte = aventureroService.obtenerReporteDeArmados();
+        
+        if (reporte.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        
+        return new ResponseEntity<>(reporte, HttpStatus.OK);
     }
 
 }
