@@ -26,7 +26,7 @@ public class AventureroController {
     private AventureroService aventureroService;
 
     @GetMapping
-    public ResponseEntity<List<AventureroDTO>> todosLosHeroes() {
+    public ResponseEntity<List<AventureroDTO>> todosLosAventureros() {
         List<AventureroDTO> aventureros = aventureroService.obtenerTodos();
         if (aventureros.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -65,7 +65,7 @@ public class AventureroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarHeroe(@PathVariable Integer id) {
+    public ResponseEntity<String> eliminarAventurero(@PathVariable Integer id) {
         String resultado = aventureroService.eliminar(id);
         if (resultado.contains("exitosamente")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);

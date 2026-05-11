@@ -63,6 +63,12 @@ public class AventureroService {
         }else{
             dto.setNombreParty("Lobo solitario, auuu");
         }
+
+        if (aventurero.getPocionesObtenidas() != null) {
+        dto.setNombrePociones(aventurero.getPocionesObtenidas().stream()
+            .map(bolso -> bolso.getPocion().getNombre())
+            .toList());
+        }
         return dto;
     }
 
