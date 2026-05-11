@@ -27,7 +27,7 @@ public class AventureroController {
     private AventureroService aventureroService;
 
     @GetMapping
-    public ResponseEntity<List<AventureroDTO>> todosLosHeroes() {
+    public ResponseEntity<List<AventureroDTO>> todosLosAventureros() {
         List<AventureroDTO> aventureros = aventureroService.obtenerTodos();
         if (aventureros.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -56,7 +56,7 @@ public class AventureroController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Aventurero> editarHeroe(@PathVariable Integer id, @RequestBody Aventurero aven) {
+    public ResponseEntity<Aventurero> editarAventurero(@PathVariable Integer id, @RequestBody Aventurero aven) {
         try {
             Aventurero editado = aventureroService.guardarAventurero(aven);
             return new ResponseEntity<>(editado, HttpStatus.OK);
@@ -76,7 +76,7 @@ public class AventureroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarHeroe(@PathVariable Integer id) {
+    public ResponseEntity<String> eliminarAventurero(@PathVariable Integer id) {
         String resultado = aventureroService.eliminar(id);
         if (resultado.contains("exitosamente")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);
