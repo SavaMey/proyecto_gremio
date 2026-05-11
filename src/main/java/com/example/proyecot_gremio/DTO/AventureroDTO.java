@@ -11,5 +11,6 @@ public class AventureroDTO {
     private String nombreParty;
     private String nombreProfesion;
     private List<String> nombrePociones;
+    private List<String> nombreArmas;
 
 }

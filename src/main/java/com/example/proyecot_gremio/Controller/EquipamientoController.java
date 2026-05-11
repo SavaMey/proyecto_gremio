@@ -8,28 +8,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.proyecot_gremio.DTO.BolsoPocionesDTO;
-import com.example.proyecot_gremio.Service.BolsoPocionesService;
+import com.example.proyecot_gremio.DTO.EquipamientoDTO;
+import com.example.proyecot_gremio.Service.EquipamientoService;
 
 @RestController
-@RequestMapping("/api/v1/bolso")
-public class BolsoPocionesController {
+@RequestMapping("/api/v1/equipamiento")
+public class EquipamientoController {
 
     @Autowired
-    private BolsoPocionesService bolsoPocionesService;
+    private EquipamientoService equipamientoService;
 
     @PostMapping("/agregar")
-    public ResponseEntity<BolsoPocionesDTO> agregar(@RequestParam Integer aventureroId, 
-                                                   @RequestParam Integer pocionId, 
-                                                   @RequestParam Integer cantidad) {
+    public ResponseEntity<EquipamientoDTO> agregar(@RequestParam Integer aventureroId, 
+                                                   @RequestParam Integer armaId) {
         try {
-            BolsoPocionesDTO resultado = bolsoPocionesService.agregarPocionAlBolso(aventureroId, pocionId, cantidad);
+            EquipamientoDTO resultado = equipamientoService.agregarArmaAlAventurero(aventureroId, armaId);
             return new ResponseEntity<>(resultado, HttpStatus.CREATED); 
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
         }
     }
+
 }
-
-
-
