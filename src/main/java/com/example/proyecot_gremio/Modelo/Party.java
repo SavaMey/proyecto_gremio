@@ -31,9 +31,9 @@ public class Party {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-   @Size(min = 3, max = 70, message = "La party debe tener al menos 3 aventureros")
-   @Column(nullable = false, length = 70)
-   private String nombre;
+    @Size(min = 3, max = 70, message = "La party debe tener al menos 3 aventureros")
+    @Column(nullable = false, length = 70)
+    private String nombre;
 
     @Builder.Default
     @Min(value = 1, message = "El nivel mínimo es 1")
