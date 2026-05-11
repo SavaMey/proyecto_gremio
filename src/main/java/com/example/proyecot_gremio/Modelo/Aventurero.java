@@ -47,4 +47,7 @@ public class Aventurero {
     @ManyToOne
     @JoinColumn(name = "profesion_id")
     private Profesion profesion;
+
+    @OneToMany(mappedBy = "aventurero")
+    private List<Equipamiento> equipoEquipado;
 }

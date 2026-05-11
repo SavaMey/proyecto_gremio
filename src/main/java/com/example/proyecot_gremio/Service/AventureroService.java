@@ -65,8 +65,14 @@ public class AventureroService {
         }
 
         if (aventurero.getPocionesObtenidas() != null) {
-        dto.setNombrePociones(aventurero.getPocionesObtenidas().stream()
+            dto.setNombrePociones(aventurero.getPocionesObtenidas().stream()
             .map(bolso -> bolso.getPocion().getNombre())
+            .toList());
+        }
+
+        if (aventurero.getEquipoEquipado() !=null) {
+            dto.setNombreArmas(aventurero.getEquipoEquipado().stream()
+            .map(equipo -> equipo.getArma().getNombre())
             .toList());
         }
         return dto;

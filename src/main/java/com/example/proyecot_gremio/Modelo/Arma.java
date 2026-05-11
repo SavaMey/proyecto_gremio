@@ -9,19 +9,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "pocion")
-public class Pocion {
-
+@Table(name= "armas")
+public class Arma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -36,9 +39,16 @@ public class Pocion {
     @Column(nullable = false, length = 100)
     private String descripcion;
 
-    //------------------------------------------------
+    @Builder.Default
+    @Min(value = 1, message = "El daño mínimo es 1")
+    @Max(value = 999, message = "El daño máximo es 999")
+    @Column(nullable = false)
+    private Integer dañoArma = 1;
 
-    @OneToMany(mappedBy = "pocion")
-    private List<BolsoPociones> pociones;
+//-----------------------------------------------------------------------------
+
+    @OneToMany(mappedBy = "arma")
+    private List<Equipamiento> equipos;
+
 
 }

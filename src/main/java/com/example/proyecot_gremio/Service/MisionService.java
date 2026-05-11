@@ -98,6 +98,7 @@ public class MisionService {
         dto.setId(mision.getId());
         dto.setNombre(mision.getNombre());
         dto.setNivel(mision.getNivel());
+        dto.setDescripcion(mision.getDescripcion());
         dto.setExpRecompensa(mision.getExpRecompensa());
         dto.setOroRecompensa(mision.getOroRecompensa());
         return dto;
