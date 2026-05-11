@@ -59,9 +59,9 @@ public class MisionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarMision(@PathVariable Integer misionId) {
+    public ResponseEntity<String> eliminarMision(@PathVariable Integer id) {
         try {
-            String resultado = misionService.eliminarMision(misionId);
+            String resultado = misionService.eliminarMision(id);
             return new ResponseEntity<>(resultado, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

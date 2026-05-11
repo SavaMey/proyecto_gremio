@@ -88,7 +88,7 @@ public class GremioController {
         }
     }
 
-    @DeleteMapping("/{gremioId}/mision{misionId}")
+    @DeleteMapping("/{gremioId}/mision/{misionId}")
     public ResponseEntity<String> misionCompletada(@PathVariable Integer gremioId, @PathVariable Integer misionId) {
         try {
             String resultado = gremioService.misionCompletada(gremioId, misionId);
@@ -108,7 +108,7 @@ public class GremioController {
         }
     }
 
-    @DeleteMapping("/{gremioId}/mision{misionId}")
+    @DeleteMapping("/{gremioId}/faccion/{faccionId}")
     public ResponseEntity<String> desligarFaccion(@PathVariable Integer gremioId, @PathVariable Integer faccionId) {
         try {
             String resultado = gremioService.desligarFaccion(gremioId, faccionId);

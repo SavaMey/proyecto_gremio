@@ -59,9 +59,9 @@ public class FaccionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarMision(@PathVariable Integer faccionId) {
+    public ResponseEntity<String> eliminarFaccion(@PathVariable Integer id) {
         try {
-            String resultado = faccionService.eliminarFaccion(faccionId);
+            String resultado = faccionService.eliminarFaccion(id);
             return new ResponseEntity<>(resultado, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

@@ -58,7 +58,7 @@ public class AventureroController {
     @PatchMapping("/{id}")
     public ResponseEntity<Aventurero> editarHeroe(@PathVariable Integer id, @RequestBody Aventurero aven) {
         try {
-            Aventurero editado = aventureroService.guardarAventurero(aven);
+            Aventurero editado = aventureroService.actualizarAventurero(id, aven);
             return new ResponseEntity<>(editado, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

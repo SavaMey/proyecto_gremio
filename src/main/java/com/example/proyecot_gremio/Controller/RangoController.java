@@ -25,7 +25,7 @@ public class RangoController {
     private RangoService rangoService;
 
     @GetMapping
-    public ResponseEntity<List<RangoDTO>> todosLosReputacion() {
+    public ResponseEntity<List<RangoDTO>> todosLosRangos() {
         List<RangoDTO> rango = rangoService.obtenerTodos();
         if (rango.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -54,9 +54,9 @@ public class RangoController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Rango> editarReputacion(@PathVariable Integer id, @RequestBody Rango ran) {
+    public ResponseEntity<Rango> editarRango(@PathVariable Integer id, @RequestBody Rango ran) {
         try {
-            Rango editado = rangoService.guardarRango(ran);
+            Rango editado = rangoService.actualizarRango(id, ran);
             return new ResponseEntity<>(editado, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -64,7 +64,7 @@ public class RangoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Rango> actualizarReputacion(@PathVariable Integer id, @RequestBody Rango ran){
+    public ResponseEntity<Rango> actualizarRango(@PathVariable Integer id, @RequestBody Rango ran){
         try{
             Rango newRan = rangoService.actualizarRango(id, ran);
             return new ResponseEntity<>(newRan, HttpStatus.OK);
