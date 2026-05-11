@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -57,11 +58,21 @@ public class Mision {
     @Column(nullable = false)
     private Integer oroRecompensa = 100;
 
+    @NotNull (message = "Debes definir si esta completa o no")
+    @Column(nullable = false)
+    private Boolean estado;
+
     //--------------------------------------------------------------------------------
 
     @ManyToOne
     @JoinColumn(name = "Gremio")
     private Gremio gremio;
 
-    
+    @ManyToOne
+    @JoinColumn(name = "rango_id")
+    private Rango rango;
+
+    @ManyToOne
+    @JoinColumn(name = "party_id")
+    private Party party;
 }

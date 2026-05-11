@@ -44,6 +44,9 @@ public class PartyService {
             .orElseThrow(() -> new RuntimeException("Error: La Party no existe en los registros."));
         Aventurero aventurero = aventureroRepository.findById(aventureroId)
             .orElseThrow(() -> new RuntimeException("Error: El aventurero no existe en los registros."));
+        if (aventurero.getParty() != null) {
+            return "Este aventurero ya pertenece a la party: " + aventurero.getParty().getNombre();
+        }
         aventurero.setParty(party); 
         aventureroRepository.save(aventurero);
 

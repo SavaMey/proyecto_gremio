@@ -11,8 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -35,13 +33,7 @@ public class Aventurero {
     @NotBlank (message = "El nombre es obligatorio")
     @Size(min = 3, max = 100, message = "El nombre debe tener entre 3 y 100 caracteres")
     @Column(nullable = false, length = 100)
-    private String nombre;
-
-    @Builder.Default
-    @Min(value = 1, message = "El nivel mínimo es 1")
-    @Max(value = 99, message = "El nivel máximo es 99")
-    @Column(nullable = false)
-    private Integer nivel = 1;
+    private String nombre;    
 
     //------------------------------------------------------------
     

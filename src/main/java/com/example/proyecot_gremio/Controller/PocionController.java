@@ -18,7 +18,7 @@ import com.example.proyecot_gremio.Modelo.Pocion;
 import com.example.proyecot_gremio.Service.PocionService;
 
 @RestController
-@RequestMapping("api/v1/pociones")
+@RequestMapping("/api/v1/pociones")
 public class PocionController {
 
     @Autowired

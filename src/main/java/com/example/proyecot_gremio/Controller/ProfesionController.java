@@ -55,7 +55,7 @@ public class ProfesionController {
     @PatchMapping("/{id}")
     public ResponseEntity<Profesion> editarProfesion(@PathVariable Integer id, @RequestBody Profesion prof) {
         try {
-            Profesion editado = profesionService.guardarProfesion(prof);
+            Profesion editado = profesionService.actualizarProfesion(id, prof);
             return new ResponseEntity<>(editado, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -73,7 +73,7 @@ public class ProfesionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarReputacion(@PathVariable Integer id) {
+    public ResponseEntity<String> eliminarProfesion(@PathVariable Integer id) {
         String resultado = profesionService.eliminar(id);
         if (resultado.contains("exitosamente")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);
