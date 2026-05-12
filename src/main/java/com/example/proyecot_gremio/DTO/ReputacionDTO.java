@@ -7,5 +7,5 @@ public class ReputacionDTO {
     private Integer id;
     private String nombre;
     private Integer nivel;
-    private String faccion;
+    private String nombreFaccion;
 }

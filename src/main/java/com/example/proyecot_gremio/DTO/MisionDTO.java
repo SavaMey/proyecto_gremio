@@ -11,4 +11,6 @@ public class MisionDTO {
     private Integer nivel;
     private Integer expRecompensa;
     private Integer oroRecompensa;
+    private Boolean estado;
+    private String rango;
 }
