@@ -3,6 +3,7 @@ package com.example.proyecot_gremio.Service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.example.proyecot_gremio.DTO.ProfesionDTO;
 import com.example.proyecot_gremio.Modelo.Profesion;
 import com.example.proyecot_gremio.Repository.ProfesionRepository;

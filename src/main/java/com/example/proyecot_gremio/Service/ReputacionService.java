@@ -4,7 +4,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.proyecot_gremio.DTO.ReputacionDTO;
+import com.example.proyecot_gremio.Modelo.Faccion;
 import com.example.proyecot_gremio.Modelo.Reputacion;
+import com.example.proyecot_gremio.Repository.FaccionRepository;
 import com.example.proyecot_gremio.Repository.ReputacionRepository;
 import jakarta.transaction.Transactional;
 
@@ -14,6 +16,7 @@ public class ReputacionService {
     
     @Autowired
     private ReputacionRepository reputacionRepository;
+    private FaccionRepository faccionRepository;
 
     public List<ReputacionDTO> obtenerTodos() {
         return reputacionRepository.findAll().stream().map(this::convertirADTO).toList();
@@ -62,6 +65,18 @@ public class ReputacionService {
         else
             return "Benevolente";
 
+    }
+
+public ReputacionDTO asignarFaccion(Integer reputacionId, Integer faccionId) {
+        Reputacion reputacion = reputacionRepository.findById(reputacionId)
+        .orElseThrow(() -> new RuntimeException("Reputación no encontrada"));
+        
+        Faccion faccion = faccionRepository.findById(faccionId)
+        .orElseThrow(() -> new RuntimeException("Facción no encontrada"));
+        
+        reputacion.setFaccion(faccion);
+        Reputacion guardada = reputacionRepository.save(reputacion);
+        return convertirADTO(guardada);
     }
 
     private ReputacionDTO convertirADTO(Reputacion reputacion) {

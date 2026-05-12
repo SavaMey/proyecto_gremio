@@ -74,16 +74,4 @@ public class AventureroController {
             return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
         }
     }
-
-    @GetMapping("/reporte/armados")
-    public ResponseEntity<List<AventureroArmadoDTO>> verAventurerosConArmas() {
-        List<AventureroArmadoDTO> reporte = aventureroService.obtenerReporteDeArmados();
-        
-        if (reporte.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        
-        return new ResponseEntity<>(reporte, HttpStatus.OK);
-    }
-
 }

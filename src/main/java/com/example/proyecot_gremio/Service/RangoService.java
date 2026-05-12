@@ -52,13 +52,11 @@ public class RangoService {
 
     private String nomRango(Integer nivel) {
         if (nivel >= 1 && nivel < 5) 
-            return "Soldado";
+            return "Bronce";
         if (nivel >= 5 && nivel < 10) 
-            return "Caballero";
-        if (nivel >= 10 && nivel < 15) 
-            return "Paladin";
+            return "Plata";
         else
-            return "Lord";
+            return "Oro";
     }
 
     private RangoDTO convertirADTO(Rango rango) {
