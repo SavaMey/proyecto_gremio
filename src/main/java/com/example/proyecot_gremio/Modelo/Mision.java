@@ -37,7 +37,7 @@ public class Mision {
 
     @NotBlank (message = "La descripcion es obligatorio")
     @Size(min = 50, max = 500, message = "La descripcion debe tener entre 50 y 500 caracteres")
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 500)
     private String descripcion;
 
     @Builder.Default
@@ -65,8 +65,12 @@ public class Mision {
     //--------------------------------------------------------------------------------
 
     @ManyToOne
-    @JoinColumn(name = "Gremio")
+    @JoinColumn(name = "gremio_id")
     private Gremio gremio;
+
+    @ManyToOne
+    @JoinColumn(name = "faccion_id")
+    private Faccion faccion;
 
     @ManyToOne
     @JoinColumn(name = "rango_id")

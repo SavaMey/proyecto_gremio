@@ -46,14 +46,14 @@ public class Faccion {
 
     //----------------------------------------------------------------------
 
-    @OneToMany
+    @OneToMany(mappedBy = "faccion")
     @ToString.Exclude
     private List<Mision> misiones;
 
-    @OneToMany
+    @OneToMany(mappedBy = "faccion")
     @ToString.Exclude
     private List<Reputacion> reputacion;
-
+    
     @OneToOne
     @JoinColumn(name = "gremio_id")
     private Gremio gremio;

@@ -39,5 +39,7 @@ public class Rango {
 
     //----------------------------------------------------------------------
 
-    
+    @OneToMany(mappedBy = "rango")
+    @ToString.Exclude
+    private List<Mision> misiones;
 }

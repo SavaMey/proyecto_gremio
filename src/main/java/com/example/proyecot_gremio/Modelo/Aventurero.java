@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Builder
@@ -33,7 +34,7 @@ public class Aventurero {
     @NotBlank (message = "El nombre es obligatorio")
     @Size(min = 3, max = 100, message = "El nombre debe tener entre 3 y 100 caracteres")
     @Column(nullable = false, length = 100)
-    private String nombre;    
+    private String nombre;
 
     //------------------------------------------------------------
     
@@ -49,5 +50,6 @@ public class Aventurero {
     private Profesion profesion;
 
     @OneToMany(mappedBy = "aventurero")
+    @ToString.Exclude
     private List<Equipamiento> equipoEquipado;
 }

@@ -49,7 +49,8 @@ public class Gremio {
     @ToString.Exclude
     private List<Mision> misiones;
 
-    @OneToOne
+    @OneToOne(mappedBy = "gremio")
+    @ToString.Exclude
     private Faccion faccion;
 
     @OneToMany(mappedBy = "gremio")
