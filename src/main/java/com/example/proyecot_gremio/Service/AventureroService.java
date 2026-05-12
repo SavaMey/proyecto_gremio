@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.example.proyecot_gremio.DTO.AventureroArmadoDTO;
 import com.example.proyecot_gremio.DTO.AventureroDTO;
 import com.example.proyecot_gremio.Modelo.Aventurero;
+import com.example.proyecot_gremio.Modelo.Profesion;
 import com.example.proyecot_gremio.Repository.AventureroRepository;
+import com.example.proyecot_gremio.Repository.ProfesionRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -18,6 +20,7 @@ public class AventureroService {
     
     @Autowired
     private AventureroRepository aventureroRepository;
+    private ProfesionRepository profesionRepository;
 
     public List<AventureroDTO> obtenerTodos() {
         return aventureroRepository.findAll().stream()
@@ -54,8 +57,14 @@ public class AventureroService {
         return aventureroRepository.save(aven);
     }
 
-    public List<AventureroArmadoDTO> obtenerReporteDeArmados() {
-        return aventureroRepository.buscarSoloAventurerosArmados();
+    public AventureroDTO asignarProfesion(Integer aventureroId, Integer profesionId) {
+        Aventurero aventurero = aventureroRepository.findById(aventureroId)
+            .orElseThrow(() -> new RuntimeException("Aventurero no encontrado"));
+        Profesion profesion = profesionRepository.findById(profesionId)
+            .orElseThrow(() -> new RuntimeException("Profesión no encontrada"));
+        aventurero.setProfesion(profesion);
+        Aventurero guardado = aventureroRepository.save(aventurero);
+        return convertirADTO(guardado);
     }
 
     private AventureroDTO convertirADTO(Aventurero aventurero) {
@@ -69,16 +78,11 @@ public class AventureroService {
             dto.setNombreParty("Lobo solitario, auuu");
         }
 
-        if (aventurero.getPocionesObtenidas() != null) {
-            dto.setNombrePociones(aventurero.getPocionesObtenidas().stream()
-            .map(bolso -> bolso.getPocion().getNombre())
-            .toList());
-        }
-
-        if (aventurero.getEquipoEquipado() !=null) {
-            dto.setNombreArmas(aventurero.getEquipoEquipado().stream()
-            .map(equipo -> equipo.getArma().getNombre())
-            .toList());
+        
+        if (aventurero.getProfesion() != null) {
+            dto.setNombreProfesion(aventurero.getProfesion().getNombre());
+        } else {
+            dto.setNombreProfesion("Desempleado (Aún no elige su camino)"); 
         }
         return dto;
     }

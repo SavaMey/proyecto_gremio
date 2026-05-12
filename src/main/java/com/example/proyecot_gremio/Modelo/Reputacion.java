@@ -1,12 +1,12 @@
 package com.example.proyecot_gremio.Modelo;
 
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -34,10 +34,10 @@ public class Reputacion {
     @Min(value = -10, message = "El nivel mínimo es -10")
     @Max(value = 10, message = "El nivel máximo es 10")
     @Column(nullable = false)
-    private Integer nivel = 1;
+    private Integer nivel = 0;
     
-    //---------------------------------------------------
-    
+    //----------------------------------------------------------------------
+
     @ManyToOne
     @JoinColumn(name = "faccion_id")
     private Faccion faccion;

@@ -32,15 +32,12 @@ public class Rango {
     private String nombre;
 
     @Builder.Default
-    @Min(value = 1, message = "El nivel mínimo es -10")
-    @Max(value = 15, message = "El nivel máximo es 10")
+    @Min(value = 1, message = "El nivel mínimo es 1")
+    @Max(value = 15, message = "El nivel máximo es 15")
     @Column(nullable = false)
     private Integer nivel = 1;
 
-    //-----------------------------------------------
+    //----------------------------------------------------------------------
 
-    @OneToMany(mappedBy = "rango")
-    @ToString.Exclude
-    private List<Mision> misiones;
-
+    
 }
