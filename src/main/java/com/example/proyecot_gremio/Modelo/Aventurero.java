@@ -43,6 +43,7 @@ public class Aventurero {
     private Party party;
 
     @OneToMany(mappedBy = "aventurero")
+    @ToString.Exclude
     private List<BolsoPociones> pocionesObtenidas;
 
     @ManyToOne

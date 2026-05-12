@@ -15,6 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.Builder;
 import lombok.Data;
 
@@ -48,6 +49,7 @@ public class Arma {
 //-----------------------------------------------------------------------------
 
     @OneToMany(mappedBy = "arma")
+    @ToString.Exclude
     private List<Equipamiento> equipos;
 
 
