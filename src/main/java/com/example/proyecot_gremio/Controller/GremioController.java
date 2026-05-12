@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.proyecot_gremio.DTO.GremioDTO;
+import com.example.proyecot_gremio.DTO.MisionDTO;
 import com.example.proyecot_gremio.Modelo.Gremio;
 import com.example.proyecot_gremio.Service.GremioService;
+import com.example.proyecot_gremio.Service.MisionService;
 
 @RestController
 @RequestMapping("/api/v1/gremios")
@@ -24,6 +26,9 @@ public class GremioController {
 
     @Autowired
     private GremioService gremioService;
+
+    @Autowired
+    private MisionService misionService;
 
     @GetMapping
     public ResponseEntity<List<GremioDTO>> listarGremios() {
@@ -115,6 +120,18 @@ public class GremioController {
             return new ResponseEntity<>(resultado,HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{gremioId}/misiones/completadas")
+    public ResponseEntity<List<MisionDTO>> misionesCompletadas(@PathVariable Integer gremioId) {
+        try {
+            List<MisionDTO> misiones = misionService.obtenerMisionesCompletadas(gremioId);
+            return misiones.isEmpty()
+                ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
+                : new ResponseEntity<>(misiones, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

@@ -93,6 +93,12 @@ public class MisionService {
         return "Misión aceptada exitosamente: " + mision.getNombre();
     }
 
+    public List<MisionDTO> obtenerMisionesCompletadas(Integer gremioId) {
+    return misionRepository.findMisionesCompletadas(gremioId).stream()
+            .map(this::convertirADTO)
+            .toList();
+    }
+
     private MisionDTO convertirADTO(Mision mision) {
         MisionDTO dto = new MisionDTO();
         dto.setId(mision.getId());
