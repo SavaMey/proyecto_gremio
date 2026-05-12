@@ -19,7 +19,7 @@ import com.example.proyecot_gremio.Modelo.Party;
 import com.example.proyecot_gremio.Service.PartyService;
 
 @RestController
-@RequestMapping("api/v1/parties")
+@RequestMapping("/api/v1/parties")
 public class PartyController {
 
     @Autowired
@@ -31,6 +31,16 @@ public class PartyController {
         return parties.isEmpty() 
             ? new ResponseEntity<>(HttpStatus.NO_CONTENT) 
             : new ResponseEntity<>(parties, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PartyDTO> buscarPorId(@PathVariable Integer id) {
+        try {
+            PartyDTO party = partyService.buscarPorId(id);
+            return new ResponseEntity<>(party, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping

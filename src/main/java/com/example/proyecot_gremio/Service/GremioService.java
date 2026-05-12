@@ -45,8 +45,8 @@ public class GremioService {
         return convertirADTO(gremio);
     }
 
-    public Gremio guardarGremio(Gremio gremio){
-        return gremioRepository.save(gremio);
+    public GremioDTO guardarGremio(Gremio gremio){
+        return convertirADTO(gremioRepository.save(gremio));
     }
 
     public Gremio actualizarGremio(Integer id, Gremio gremio){
@@ -73,6 +73,10 @@ public class GremioService {
             .orElseThrow(() -> new RuntimeException("Error: El Gremio no existe en los registros oficiales."));
         Party party = partyRepository.findById(partyId)
             .orElseThrow(() -> new RuntimeException("Error: La Party no existe en los registros."));
+        if (party.getGremio() != null) {
+            return "Esta party ya pertenece al gremio: " + party.getGremio().getNombre();
+        }
+
         party.setGremio(gremio); 
         partyRepository.save(party);
 
@@ -95,6 +99,9 @@ public class GremioService {
             .orElseThrow(() -> new RuntimeException("Error: El Gremio no existe en los registros oficiales."));
         Mision mision = misionRepository.findById(misionId)
             .orElseThrow(() -> new RuntimeException("Error: La Mision no existe en los registros."));
+        if (mision.getGremio() != null) {
+            return "Esta misión ya está asignada al gremio: " + mision.getGremio().getNombre();
+        }
         mision.setGremio(gremio); 
         misionRepository.save(mision);
 
@@ -105,9 +112,9 @@ public class GremioService {
         Mision mision = misionRepository.findById(misionId)
             .orElseThrow(() -> new RuntimeException("La mision no existe en los registros del gremio."));
         if (mision.getGremio() != null && mision.getGremio().getId().equals(gremioId)) {
-            mision.setGremio(null);
+            mision.setEstado(true);
             misionRepository.save(mision);
-            return "La mision ya ha sido completada";
+            return "La mision ha sido completada exitosamente";
         }
         return "Esta mision no pertenece al gremio.";
     }
@@ -129,12 +136,13 @@ public class GremioService {
         Faccion faccion = faccionRepository.findById(faccionId)
             .orElseThrow(() -> new RuntimeException("La Faccion no existe en los registros del gremio."));
         if (faccion.getGremio() != null && faccion.getGremio().getId().equals(gremioId)) {
-            faccion.setGremio(null);
-            faccionRepository.save(faccion);
-            return "La Faccion se ha desligado del gremio permanentemente.";
+            Gremio gremio = gremioRepository.findById(gremioId)
+            .orElseThrow(() -> new RuntimeException("El gremio no existe."));
+            gremio.setFaccion(null);
+            gremioRepository.save(gremio);
+            return "La Facción se ha desligado del gremio permanentemente.";
         }
         return "Esta Faccion no esta asociada al gremio actual.";
     }
     
- 
 }

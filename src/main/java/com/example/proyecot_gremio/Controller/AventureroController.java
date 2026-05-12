@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.proyecot_gremio.DTO.AventureroArmadoDTO;
 import com.example.proyecot_gremio.DTO.AventureroDTO;
 import com.example.proyecot_gremio.Modelo.Aventurero;
 import com.example.proyecot_gremio.Service.AventureroService;
@@ -27,7 +27,7 @@ public class AventureroController {
     private AventureroService aventureroService;
 
     @GetMapping
-    public ResponseEntity<List<AventureroDTO>> todosLosHeroes() {
+    public ResponseEntity<List<AventureroDTO>> todosLosAventureros() {
         List<AventureroDTO> aventureros = aventureroService.obtenerTodos();
         if (aventureros.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -55,16 +55,6 @@ public class AventureroController {
         }
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Aventurero> editarHeroe(@PathVariable Integer id, @RequestBody Aventurero aven) {
-        try {
-            Aventurero editado = aventureroService.guardarAventurero(aven);
-            return new ResponseEntity<>(editado, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Aventurero> actualizarAventurero(@PathVariable Integer id, @RequestBody Aventurero aven){
         try{
@@ -76,7 +66,7 @@ public class AventureroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarHeroe(@PathVariable Integer id) {
+    public ResponseEntity<String> eliminarAventurero(@PathVariable Integer id) {
         String resultado = aventureroService.eliminar(id);
         if (resultado.contains("exitosamente")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);

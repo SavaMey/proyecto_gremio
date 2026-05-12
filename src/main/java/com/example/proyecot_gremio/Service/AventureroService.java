@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.proyecot_gremio.DTO.AventureroArmadoDTO;
 import com.example.proyecot_gremio.DTO.AventureroDTO;
 import com.example.proyecot_gremio.Modelo.Aventurero;
 import com.example.proyecot_gremio.Modelo.Profesion;
@@ -50,9 +51,6 @@ public class AventureroService {
     
     public Aventurero actualizarAventurero(Integer id,Aventurero aventurero){
         Aventurero aven = aventureroRepository.findById(id).orElseThrow(() -> new RuntimeException("El aventurero no está en los registros."));
-        if(aventurero.getNivel() != null){
-            aven.setNivel(aventurero.getNivel());
-        }
         if(aventurero.getNombre() != null){
             aven.setNombre(aventurero.getNombre());
         }
@@ -73,7 +71,6 @@ public class AventureroService {
         AventureroDTO dto = new AventureroDTO();
         dto.setId(aventurero.getId());
         dto.setNombre(aventurero.getNombre());
-        dto.setNivel(aventurero.getNivel());
 
         if (aventurero.getParty() != null) {
             dto.setNombreParty(aventurero.getParty().getNombre());

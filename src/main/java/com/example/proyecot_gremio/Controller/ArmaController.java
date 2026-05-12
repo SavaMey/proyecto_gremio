@@ -13,40 +13,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.proyecot_gremio.DTO.PocionDTO;
-import com.example.proyecot_gremio.Modelo.Pocion;
-import com.example.proyecot_gremio.Service.PocionService;
+import com.example.proyecot_gremio.DTO.ArmaDTO;
+import com.example.proyecot_gremio.Modelo.Arma;
+import com.example.proyecot_gremio.Service.ArmaService;
 
 @RestController
-@RequestMapping("/api/v1/pociones")
-public class PocionController {
-
+@RequestMapping("/api/v1/armas")
+public class ArmaController {
     @Autowired
-    private PocionService pocionService;
+    private ArmaService armaService;
 
     @GetMapping
-    public ResponseEntity<List<PocionDTO>> todasLasPociones() {
-        List<PocionDTO> pociones = pocionService.obtenerTodas();
-        if (pociones.isEmpty()) {
+    public ResponseEntity<List<ArmaDTO>> todasLasArmas() {
+        List<ArmaDTO> armas = armaService.obtenerTodas();
+        if (armas.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(pociones, HttpStatus.OK);
+        return new ResponseEntity<>(armas, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PocionDTO> buscarPorId(@PathVariable Integer id) {
+    public ResponseEntity<ArmaDTO> buscarPorId(@PathVariable Integer id) {
         try {
-            PocionDTO poci = pocionService.buscarPorId(id);
-            return new ResponseEntity<>(poci, HttpStatus.OK);
+            ArmaDTO arm = armaService.buscarPorId(id);
+            return new ResponseEntity<>(arm, HttpStatus.OK);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<Pocion> agregarPocion(@RequestBody Pocion pocion) {
+    public ResponseEntity<Arma> agregarArma(@RequestBody Arma arma) {
         try {
-            Pocion guardado = pocionService.guardarPocion(pocion);
+            Arma guardado = armaService.guardarArma(arma);
             return new ResponseEntity<>(guardado, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -54,15 +53,14 @@ public class PocionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarPocion(@PathVariable Integer id) {
-        String resultado = pocionService.eliminarPocion(id);
+    public ResponseEntity<String> eliminarArma(@PathVariable Integer id) {
+        String resultado = armaService.eliminarArma(id);
         if (resultado.contains("exitosamente")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
         }
     }
-
 
 
 }

@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,7 +24,7 @@ public class RangoController {
     private RangoService rangoService;
 
     @GetMapping
-    public ResponseEntity<List<RangoDTO>> todosLosReputacion() {
+    public ResponseEntity<List<RangoDTO>> todosLosRangos() {
         List<RangoDTO> rango = rangoService.obtenerTodos();
         if (rango.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -53,18 +52,8 @@ public class RangoController {
         }
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Rango> editarReputacion(@PathVariable Integer id, @RequestBody Rango ran) {
-        try {
-            Rango editado = rangoService.guardarRango(ran);
-            return new ResponseEntity<>(editado, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
     @PutMapping("/{id}")
-    public ResponseEntity<Rango> actualizarReputacion(@PathVariable Integer id, @RequestBody Rango ran){
+    public ResponseEntity<Rango> actualizarRango(@PathVariable Integer id, @RequestBody Rango ran){
         try{
             Rango newRan = rangoService.actualizarRango(id, ran);
             return new ResponseEntity<>(newRan, HttpStatus.OK);

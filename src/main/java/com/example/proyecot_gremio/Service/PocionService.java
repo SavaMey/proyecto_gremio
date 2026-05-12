@@ -49,6 +49,7 @@ public class PocionService {
         PocionDTO dto = new PocionDTO();
         dto.setId(pocion.getId());
         dto.setNombre(pocion.getNombre());
+        dto.setDescripcion(pocion.getDescripcion());
         return dto;
     }
 
