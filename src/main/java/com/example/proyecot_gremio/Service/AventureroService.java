@@ -67,6 +67,10 @@ public class AventureroService {
         return convertirADTO(guardado);
     }
 
+    public List<AventureroArmadoDTO> obtenerReporteDeArmados() {
+        return aventureroRepository.buscarSoloAventurerosArmados();
+    }
+
     private AventureroDTO convertirADTO(Aventurero aventurero) {
         AventureroDTO dto = new AventureroDTO();
         dto.setId(aventurero.getId());
