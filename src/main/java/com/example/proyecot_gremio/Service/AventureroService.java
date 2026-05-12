@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.proyecot_gremio.DTO.AventureroArmadoDTO;
 import com.example.proyecot_gremio.DTO.AventureroDTO;
 import com.example.proyecot_gremio.Modelo.Aventurero;
 import com.example.proyecot_gremio.Repository.AventureroRepository;
@@ -51,6 +52,10 @@ public class AventureroService {
             aven.setNombre(aventurero.getNombre());
         }
         return aventureroRepository.save(aven);
+    }
+
+    public List<AventureroArmadoDTO> obtenerReporteDeArmados() {
+        return aventureroRepository.buscarSoloAventurerosArmados();
     }
 
     private AventureroDTO convertirADTO(Aventurero aventurero) {
