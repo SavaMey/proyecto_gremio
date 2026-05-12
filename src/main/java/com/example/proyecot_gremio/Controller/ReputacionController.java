@@ -81,4 +81,15 @@ public class ReputacionController {
             return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/{reputacionId}/faccion/{faccionId}")
+    public ResponseEntity<ReputacionDTO> asignarFaccion(
+            @PathVariable Integer reputacionId, 
+            @PathVariable Integer faccionId) {
+            
+        // Llamamos al Service
+        ReputacionDTO reputacionActualizada = reputacionService.asignarFaccion(reputacionId, faccionId);
+        
+        return new ResponseEntity<>(reputacionActualizada, HttpStatus.OK);
+    }
 }

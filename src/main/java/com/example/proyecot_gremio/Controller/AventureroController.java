@@ -84,5 +84,4 @@ public class AventureroController {
             return new ResponseEntity<>(resultado, HttpStatus.NOT_FOUND);
         }
     }
-
 }
